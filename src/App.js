@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="App">
         <header className="App-header">
-            <img src={logo}/>
+            <img src={logo} style={{cursor: "pointer"}}/>
         </header>
     </div>
   );
