@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 import '@openzeppelin/contracts/proxy/Clones.sol';
@@ -10,10 +11,10 @@ contract SmartAccountFactory {
 
     uint256 accountIndex = 0;
     address accountImpl;
-    address charity;
+    address payable charity;
     mapping (address => address) public accounts;
 
-    constructor(address accountImpl_, address charity_) {
+    constructor(address accountImpl_, address payable charity_) {
         require(accountImpl_ != address(0), "Must be a valid address");
         accountImpl = accountImpl_;
         charity = charity_;
@@ -29,9 +30,9 @@ contract SmartAccountFactory {
             abi.encodePacked(msg.sender, accountIndex)
         );
 
-        address newAccount = accountImpl.cloneDeterministic(hash);
+        address payable newAccount = payable(accountImpl.cloneDeterministic(hash));
         emit AccountCreated(accountIndex, newAccount);
 
-        SmartAccount(newAccount).initialize(msg.sender, savingPercent, sponsor, charity);
+        SmartAccount(newAccount).initialize(payable(msg.sender), savingPercent, sponsor, charity);
     }
 }

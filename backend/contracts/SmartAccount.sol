@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: UNLICENSED
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
@@ -9,13 +9,13 @@ import '@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol';
 contract SmartAccount is Initializable {
     address payable public owner;
     address payable public charity;
-    address public savingPercent;
     address public sponsor;
-    address public savingsLocked;
 
+    bool public savingsLocked;
+
+    uint256 public savingPercent;
     uint256 public checkingAmt;
     uint256 public savingsAmt;
-
     uint256 public betCounter = 0;
 
     enum BetState {INCOMPLETE, WIN, LOSE}
@@ -56,9 +56,11 @@ contract SmartAccount is Initializable {
         }
     }
 
-    function placeBet(uint256 amount, string description) {
+    function placeBet(uint256 amount, string calldata description) external {
         require(msg.sender == owner, "You aren't the owner");
         require(checkingAmt >= amount, "Insufficient funds");
+        require(amount > 0, "Bet amount must be greater than 0");
+
         betCounter += 1;
         bets[betCounter] = Bet(amount, BetState.INCOMPLETE, description);
         checkingAmt -= amount;
@@ -71,9 +73,9 @@ contract SmartAccount is Initializable {
         savingsLocked = lock;
     }
 
-    function reviewBet(uint256 betIndex, BetState state) {
+    function reviewBet(uint256 betIndex, BetState state) external {
         require(msg.sender == sponsor, "You aren't the sponsor");
-        require(bets[betIndex] != address(0), "Bet does not exist");
+        require(bets[betIndex].amount != 0, "Bet does not exist");
         require(bets[betIndex].state == BetState.INCOMPLETE, "Bet has already been reviewed");
         require(state == BetState.LOSE || state == BetState.WIN, "Bet state must be either win or lose");
 
@@ -90,11 +92,11 @@ contract SmartAccount is Initializable {
 
     receive() payable external {
         savingsAmt += (msg.value * savingPercent) / 100;
-        checkingAmt += (msg.value * (100 - savingsPercent)) / 100;
+        checkingAmt += (msg.value * (100 - savingPercent)) / 100;
     }
 
     fallback() payable external {
         savingsAmt += (msg.value * savingPercent) / 100;
-        checkingAmt += (msg.value * (100 - savingsPercent)) / 100;
+        checkingAmt += (msg.value * (100 - savingPercent)) / 100;
     }
 }

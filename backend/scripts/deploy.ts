@@ -1,18 +1,19 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const ONE_YEAR_IN_SECS = 365 * 24 * 60 * 60;
-  const unlockTime = currentTimestampInSeconds + ONE_YEAR_IN_SECS;
+  // CoinCenterOrg
+  const charity_address = "0x15322B546e31F5Bfe144C4ae133A9Db6F0059fe3";
+  const [deployer] = await ethers.getSigners();
 
-  const lockedAmount = ethers.utils.parseEther("1");
+  const saEthersFactory = await ethers.getContractFactory("SmartAccount");
+  const saInstance = await saEthersFactory.connect(deployer).deploy();
 
-  const smartAccountFactory = await ethers.getContractFactory("Lock");
-  const smartAcc = await smartAccountFactory.deploy(unlockTime, { value: lockedAmount });
+  console.log(`Smart Account implementation deployed at ${saInstance.address}`);
 
-  await smartAcc.deployed();
+  const saFactoryEthersFactory = await ethers.getContractFactory("SmartAccountFactory");
+  const saFactoryInstance = await saFactoryEthersFactory.connect(deployer).deploy(saInstance.address, charity_address);
 
-  console.log(`Lock with 1 ETH and unlock timestamp ${unlockTime} deployed to ${smartAcc.address}`);
+  console.log(`Smart Account factory deployed at ${saFactoryInstance.address}`);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
