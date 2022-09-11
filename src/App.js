@@ -10,6 +10,8 @@ import {ethers} from "ethers";
 import {useEffect, useState} from "react";
 import {toHex} from "./util";
 
+import Dashboard from "./components/Dashboard";
+
 const web3Modal = new Web3Modal({
     cacheProvider: true,
     providerOptions: {}
@@ -154,11 +156,12 @@ function App() {
         <div className="App">
             <header className="App-header">
                 {/*<img src={logo} style={{cursor: "pointer"}}/>*/}
-                {!account ? (
-                    <Button onClick={connectWallet}>Connect Wallet</Button>
-                ) : (
-                    <Button onClick={disconnect}>Disconnect</Button>
-                )}
+                {/*{!account ? (*/}
+                {/*    <Button onClick={connectWallet}>Connect Wallet</Button>*/}
+                {/*) : (*/}
+                {/*    <Button onClick={disconnect}>Disconnect</Button>*/}
+                {/*)}*/}
+                <Dashboard />
             </header>
         </div>
     );
