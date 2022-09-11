@@ -5,10 +5,11 @@ async function main() {
   const [user, sponsor, funder] = await ethers.getSigners();
 
   try {
-    await funder.sendTransaction({
+    const result = await funder.sendTransaction({
       to: smartAccountAddress,
       value: ethers.utils.parseEther("10.0")
     });
+    const receipt = await result.wait();
   } catch (e) {
     console.log(e);
   }

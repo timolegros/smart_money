@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "hardhat-node": "npx hardhat node",
-    "deploy": "npx hardhat run --network localhost scripts/deploy.ts"
+    "start": "npx hardhat node",
+    "deploy": "npx hardhat run --network localhost scripts/deploy.ts",
+    "getPaid": "npx hardhat run --network localhost scripts/getPaid.ts",
+    "loseBet": "npx hardhat run --network localhost scripts/loseBet.ts",
+    "winBet": "npx hardhat run --network localhost scripts/winBet.ts"
   },
   "devDependencies": {
     "@ethersproject/abi": "^5.4.7",

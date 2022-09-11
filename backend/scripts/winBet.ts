@@ -6,7 +6,8 @@ async function main() {
 
   try {
     const smartAccount = await ethers.getContractAtFromArtifact(await artifacts.readArtifact("SmartAccount"), smartAccountAddress);
-    await smartAccount.connect(sponsor).reviewBet(2, 1);
+    const result = await smartAccount.connect(sponsor).reviewBet(2, 1);
+    const receipt = await result.wait();
   } catch (e) {
     console.log(e);
   }

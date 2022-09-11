@@ -16,7 +16,8 @@ function CreateBet({web3Provider, accountAddress, signer}) {
     const handleCreateClose = async () => {
         try {
             const smartAccount = getBankAccount(accountAddress, web3Provider);
-            await smartAccount.connect(signer).placeBet(amount, description);
+            const result = await smartAccount.connect(signer).placeBet(amount, description);
+            const receipt = await result.wait();
             setShow(false);
             window.location.reload()
         } catch (e) {
