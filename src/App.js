@@ -174,8 +174,10 @@ function App() {
         return (
             <div className="App">
                 <header className="App-header">
+                    <h1 style={{fontSize: '3em', color: '#f56c42'}}>SmartBet</h1>
                     <img src={logo} style={{cursor: "pointer", marginBottom: "1rem"}}/>
                     <Button onClick={connectWallet}>Connect Wallet</Button>
+                    <a href={"https://metamask.io/download/"} style={{fontSize: '0.5em', marginTop: '3em'}}>METAMASK Chrome extension</a>
                 </header>
             </div>
         );
