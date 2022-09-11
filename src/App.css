@@ -36,3 +36,6 @@
     transform: rotate(360deg);
   }
 }
+.balance-card {
+  margin: 1em;
+}
