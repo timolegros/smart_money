@@ -1,11 +1,12 @@
 import {Button, Form, Card, Table, Tabs, Tab} from 'react-bootstrap'
 import {useEffect, useState} from "react";
 import {getBankAccount} from "../../util";
+import {ethers} from "ethers";
 
 
 const UserDash = ({web3Provider, accountAddress}) => {
-    const [checkingBal, setCheckingBal] = useState(0);
-    const [savingsBal, setSavingsBal] = useState(0);
+    const [checkingBal, setCheckingBal] = useState("0");
+    const [savingsBal, setSavingsBal] = useState("0");
     const [betCounter, setBetCounter] = useState(0);
     const [bets, setBets] = useState([]);
 
@@ -19,8 +20,8 @@ const UserDash = ({web3Provider, accountAddress}) => {
                 const betCount = await smartAccount.betCounter();
                 console.log(`Checking: ${checkingRemaining}, Savings: ${savingsRemaining}, BetCount: ${betCount}`)
 
-                if (checkingRemaining > 0) setCheckingBal(checkingRemaining);
-                if (savingsRemaining > 0) setSavingsBal(savingsRemaining);
+                if (checkingRemaining > 0) setCheckingBal(ethers.utils.formatEther(checkingRemaining));
+                if (savingsRemaining > 0) setSavingsBal(ethers.utils.formatEther(savingsRemaining));
                 if (betCount > 0) {
                     setBetCounter(betCount)
 
@@ -46,13 +47,13 @@ const UserDash = ({web3Provider, accountAddress}) => {
                 <Card className="balance-card">
                     <Card.Body>
                         <Card.Title style={{color: 'black', 'font-size': '5rem'}}>Chequing</Card.Title>
-                        <Card.Text style={{color: 'black', 'font-size': '3rem'}}>$ {checkingBal}</Card.Text>
+                        <Card.Text style={{color: 'black', 'font-size': '3rem'}}>ETH {checkingBal}</Card.Text>
                     </Card.Body>
                 </Card>
                 <Card className="balance-card">
                     <Card.Body>
                         <Card.Title style={{color: 'black', 'font-size': '5rem'}}>Saving</Card.Title>
-                        <Card.Text style={{color: 'black', 'font-size': '3rem'}}>$ {savingsBal}</Card.Text>
+                        <Card.Text style={{color: 'black', 'font-size': '3rem'}}>ETH {savingsBal}</Card.Text>
                     </Card.Body>
                 </Card>
                 <Button variant="secondary" style={{margin: '1em'}}>
