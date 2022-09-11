@@ -9,8 +9,11 @@ import {useHistory} from 'react-router-dom';
 import {ethers} from "ethers";
 import {useEffect, useState} from "react";
 import {getAccountFactory, toHex} from "./util";
+import Dashboard from "./components/Dashboard/Dashboard";
+import CreateAccount from "./components/CreateAccount";
 
-import Dashboard from "./components/Dashboard";
+
+const zeroAddress = "0x0000000000000000000000000000000000000000";
 
 const web3Modal = new Web3Modal({
     cacheProvider: true,
@@ -41,11 +44,17 @@ function App() {
             setLibrary(library);
             if (accounts) setAccount(accounts[0]);
             setChainId(network.chainId);
-            console.log(accounts[0])
 
-            setFactoryContractInstance(await getAccountFactory(provider));
-            setAccountAddress(await factoryContractInstance.accounts(account));
+            console.log(accounts[0]);
+
+            const factory = await getAccountFactory(library);
+            const accountAddy = await factory.accounts(accounts[0])
+            console.log(accountAddy);
+
+            setFactoryContractInstance(factory);
+            setAccountAddress(accountAddy);
         } catch (error) {
+            console.error(error)
             setError(error);
         }
     };
@@ -167,14 +176,25 @@ function App() {
             </div>
         );
     } else {
-        return (
-            <div className="App">
-                <header className="App-header">
-                    <Dashboard />
-                    <Button onClick={disconnect}>Disconnect Wallet</Button>
-                </header>
-            </div>
-        );
+        if (!accountAddress || accountAddress === zeroAddress) {
+            return (
+                <div className="App">
+                    <header className="App-header">
+                        <CreateAccount />
+                        <Button onClick={disconnect}>Disconnect Wallet</Button>
+                    </header>
+                </div>
+            )
+        } else {
+            return (
+                <div className="App">
+                    <header className="App-header">
+                        <Dashboard />
+                        <Button onClick={disconnect}>Disconnect Wallet</Button>
+                    </header>
+                </div>
+            );
+        }
     }
 }
 

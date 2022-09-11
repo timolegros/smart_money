@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import SmartAccountFactoryContract from '../backend/artifacts/contracts/SmartAccountFactory.sol/SmartAccountFactory.json';
+import SmartAccountFactoryContract from './contractAbis/SmartAccountFactory.json';
 
 const smartAccountFactoryAddress = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
 
