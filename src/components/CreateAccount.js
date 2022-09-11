@@ -11,7 +11,7 @@ const CreateAccount = () => {
         <div>
             <Form>
                 <Form.Label >What percentage of your funds should be in your savings account?</Form.Label>
-                <Form.Range id="fund-percent-slider" onChange={handleChange} min="0" max="100" step="1"/>
+                <Form.Range id="fund-percent-slider" onChange={handleChange} min="0" max="100" step="1" defaultValue="20"/>
                 <b></b>
             </Form>
         </div>
