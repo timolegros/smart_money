@@ -33,6 +33,7 @@ function App() {
     const [verified, setVerified] = useState();
     const [accountAddress, setAccountAddress] = useState();
     const [factoryContractInstance, setFactoryContractInstance] = useState();
+    const [signer, setSigner] = useState();
 
     const connectWallet = async () => {
         try {
@@ -46,6 +47,9 @@ function App() {
             setChainId(network.chainId);
 
             console.log(accounts[0]);
+
+            const tempSigner = await library.getSigner();
+            setSigner(tempSigner);
 
             const factory = await getAccountFactory(library);
             const accountAddy = await factory.accounts(accounts[0])
@@ -180,7 +184,7 @@ function App() {
             return (
                 <div className="App">
                     <header className="App-header">
-                        <CreateAccount />
+                        <CreateAccount setNewAccountAddress={setAccountAddress} factoryInstance={factoryContractInstance} signer={signer}/>
                         <Button onClick={disconnect}>Disconnect Wallet</Button>
                     </header>
                 </div>
@@ -189,7 +193,7 @@ function App() {
             return (
                 <div className="App">
                     <header className="App-header">
-                        <Dashboard />
+                        <Dashboard web3Provider={library} accountAddress={accountAddress}/>
                         <Button onClick={disconnect}>Disconnect Wallet</Button>
                     </header>
                 </div>
