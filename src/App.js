@@ -174,6 +174,7 @@ function App() {
         return (
             <div className="App">
                 <header className="App-header">
+                    <h1 style={{color: '#f57056', fontSize: '3em'}}>SmartBet</h1>
                     <img src={logo} style={{cursor: "pointer", marginBottom: "1rem"}}/>
                     <Button onClick={connectWallet}>Connect Wallet</Button>
                 </header>
@@ -184,8 +185,11 @@ function App() {
             return (
                 <div className="App">
                     <header className="App-header">
-                        <CreateAccount setNewAccountAddress={setAccountAddress} factoryInstance={factoryContractInstance} signer={signer}/>
-                        <Button onClick={disconnect}>Disconnect Wallet</Button>
+                        {/*<CreateAccount setNewAccountAddress={setAccountAddress} factoryInstance={factoryContractInstance} signer={signer}/>*/}
+                        <Dashboard/>
+
+                        <Button variant="danger" onClick={disconnect} style={{marginBottom: "1em"}}>Disconnect Wallet</Button>
+
                     </header>
                 </div>
             )
@@ -194,8 +198,9 @@ function App() {
                 <div className="App">
                     <header className="App-header">
                         <Dashboard web3Provider={library} accountAddress={accountAddress}/>
-                        <Button onClick={disconnect}>Disconnect Wallet</Button>
+                        <Button variant="danger" onClick={disconnect} style={{marginBottom: "1em"}}>Disconnect Wallet</Button>
                     </header>
+
                 </div>
             );
         }

@@ -6,7 +6,7 @@ import SponsorDash from "./SponsorDash";
 export default function Dashboard({web3Provider, accountAddress}) {
     return (
     <div className="Dashboard">
-        <Tabs defaultActiveKey="user" fill>
+        <Tabs defaultActiveKey="user" fill style={{marginTop: "1em"}}>
             <Tab eventKey="user" title="User">
                 <UserDash web3Provider={web3Provider} accountAddress={accountAddress}/>
             </Tab>

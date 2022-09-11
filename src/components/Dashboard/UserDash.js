@@ -102,6 +102,7 @@ const UserDash = ({web3Provider, accountAddress}) => {
                     </tr>
                     </tbody>
                 </Table>
+                <p>UNICEF: 0x817838ab98f50f87917359a918cb7e57c07f9fa4</p>
             </div>
         </div>
     );
