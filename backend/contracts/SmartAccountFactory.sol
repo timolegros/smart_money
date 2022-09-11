@@ -13,6 +13,7 @@ contract SmartAccountFactory {
     address accountImpl;
     address payable charity;
     mapping (address => address payable) public accounts;
+    mapping (address => uint256[]) public sponsors;
 
     constructor(address accountImpl_, address payable charity_) {
         require(accountImpl_ != address(0), "Must be a valid address");
@@ -32,6 +33,8 @@ contract SmartAccountFactory {
 
         address payable newAccount = payable(accountImpl.cloneDeterministic(hash));
         emit AccountCreated(accountIndex, newAccount);
+
+        sponsors[sponsor].push(accountIndex);
 
         accounts[msg.sender] = newAccount;
         SmartAccount(newAccount).initialize(payable(msg.sender), savingPercent, sponsor, charity);
