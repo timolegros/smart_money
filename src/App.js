@@ -174,9 +174,10 @@ function App() {
         return (
             <div className="App">
                 <header className="App-header">
-                    <h1 style={{color: '#f57056', fontSize: '3em'}}>SmartBet</h1>
+                    <h1 style={{fontSize: '3em', color: '#f56c42'}}>SmartBet</h1>
                     <img src={logo} style={{cursor: "pointer", marginBottom: "1rem"}}/>
                     <Button onClick={connectWallet}>Connect Wallet</Button>
+                    <a href={"https://metamask.io/download/"} style={{fontSize: '0.5em', marginTop: '3em'}}>METAMASK Chrome extension</a>
                 </header>
             </div>
         );
@@ -194,8 +195,8 @@ function App() {
             return (
                 <div className="App">
                     <header className="App-header">
-                        <Dashboard web3Provider={library} accountAddress={accountAddress} signer={signer}/>
-                        <Button onClick={disconnect}>Disconnect Wallet</Button>
+                        <Dashboard web3Provider={library} accountAddress={accountAddress}/>
+                        <Button variant="danger" onClick={disconnect} style={{marginBottom: "1em"}}>Disconnect Wallet</Button>
                     </header>
                 </div>
             );

@@ -43,9 +43,8 @@ const CreateAccount = ({setNewAccountAddress, factoryInstance, signer}) => {
                 </Form.Group>
 
                 <Form.Label >What percentage of your funds should be in your savings account?</Form.Label>
-                <Form.Text>{savingPercentValue}%</Form.Text>
+                <h4>{savingPercentValue}%</h4>
                 <Form.Range id="fund-percent-slider" onChange={handlePercentChange} min="0" max="100" step="1"/>
-                <b></b>
 
                 <Button variant="primary" type="submit" onClick={handleCreateAccount} style={{marginTop: "1em", marginBottom: "5em"}}>
                     Submit
