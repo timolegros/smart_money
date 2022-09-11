@@ -8,7 +8,7 @@ import Web3Modal from "web3modal";
 import {useHistory} from 'react-router-dom';
 import {ethers} from "ethers";
 import {useEffect, useState} from "react";
-import {toHex} from "./util";
+import {getAccountFactory, toHex} from "./util";
 
 import Dashboard from "./components/Dashboard";
 
@@ -28,6 +28,8 @@ function App() {
     const [message, setMessage] = useState("");
     const [signedMessage, setSignedMessage] = useState("");
     const [verified, setVerified] = useState();
+    const [accountAddress, setAccountAddress] = useState();
+    const [factoryContractInstance, setFactoryContractInstance] = useState();
 
     const connectWallet = async () => {
         try {
@@ -40,6 +42,9 @@ function App() {
             if (accounts) setAccount(accounts[0]);
             setChainId(network.chainId);
             console.log(accounts[0])
+
+            setFactoryContractInstance(await getAccountFactory(provider));
+            setAccountAddress(await factoryContractInstance.accounts(account));
         } catch (error) {
             setError(error);
         }
