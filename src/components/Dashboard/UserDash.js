@@ -1,4 +1,5 @@
 import {Button, Form, Card, Table, Tabs, Tab} from 'react-bootstrap'
+import CreateBet from "./CreateBet";
 
 
 const UserDash = () => {
@@ -17,9 +18,8 @@ const UserDash = () => {
                     <Card.Text style={{color: 'black', 'font-size': '3rem'}}>$ 4134131</Card.Text>
                 </Card.Body>
                 </Card>
-                <Button variant="secondary" style={{margin: '1em'}}>
-                + Create New Bet
-                </Button>
+                <CreateBet/>
+
             </div>
 
             <div>

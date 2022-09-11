@@ -2,7 +2,7 @@
 import logo from './metamask.svg'
 import './App.css';
 import {Button, Form} from 'react-bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css'
+
 import Web3Modal from "web3modal";
 
 import {useHistory} from 'react-router-dom';

@@ -11,17 +11,18 @@ const CreateAccount = () => {
     return (
         <div>
             <Form>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Group className="mb-3" controlId="formSponsorAddress">
                     <Form.Label>Your Sponsor's METAMASK Address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter address" />
+                    <Form.Control type="email" placeholder="0x0000000000000000000000000000000000000000" />
                     <Form.Text className="text-muted">
                         We'll never share this address with anyone else
                     </Form.Text>
                 </Form.Group>
 
-                <Form.Label >What percentage of your funds should be in your savings account?</Form.Label>
+                <Form.Label>What percentage of your funds should be in your savings account?</Form.Label>
+                <Form.Text>{savingPercentValue}%</Form.Text>
                 <Form.Range id="fund-percent-slider" onChange={handleChange} min="0" max="100" step="1"/>
-                <b></b>
+
 
                 <Button variant="primary" type="submit" style={{marginTop: "1em", marginBottom: "5em"}}>
                     Submit
