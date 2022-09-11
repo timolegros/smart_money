@@ -46,14 +46,15 @@ function App() {
             if (accounts) setAccount(accounts[0]);
             setChainId(network.chainId);
 
-            console.log(accounts[0]);
+            console.log("Logged in account", accounts[0]);
 
             const tempSigner = await library.getSigner();
             setSigner(tempSigner);
 
             const factory = await getAccountFactory(library);
-            const accountAddy = await factory.accounts(accounts[0])
-            console.log(accountAddy);
+            console.log("Factory Address", factory.address)
+            const accountAddy = await factory.getAccount(accounts[0]);
+            console.log("SmartAccount Address:", accountAddy);
 
             setFactoryContractInstance(factory);
             setAccountAddress(accountAddy);
@@ -195,7 +196,7 @@ function App() {
             return (
                 <div className="App">
                     <header className="App-header">
-                        <Dashboard web3Provider={library} accountAddress={accountAddress}/>
+                        <Dashboard web3Provider={library} accountAddress={accountAddress} signer={signer}/>
                         <Button variant="danger" onClick={disconnect} style={{marginBottom: "1em"}}>Disconnect Wallet</Button>
                     </header>
                 </div>

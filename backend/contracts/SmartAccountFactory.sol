@@ -12,13 +12,17 @@ contract SmartAccountFactory {
     uint256 accountIndex = 0;
     address accountImpl;
     address payable charity;
-    mapping (address => address payable) public accounts;
+    mapping (address => address) public accounts;
     mapping (address => uint256[]) public sponsors;
 
     constructor(address accountImpl_, address payable charity_) {
         require(accountImpl_ != address(0), "Must be a valid address");
         accountImpl = accountImpl_;
         charity = charity_;
+    }
+
+    function getAccount(address user) external view returns (address) {
+        return accounts[user];
     }
 
     function createAccount(uint256 savingPercent, address sponsor) external {
@@ -31,12 +35,12 @@ contract SmartAccountFactory {
             abi.encodePacked(msg.sender, accountIndex)
         );
 
-        address payable newAccount = payable(accountImpl.cloneDeterministic(hash));
+        address newAccount = accountImpl.cloneDeterministic(hash);
         emit AccountCreated(accountIndex, newAccount);
 
         sponsors[sponsor].push(accountIndex);
 
         accounts[msg.sender] = newAccount;
-        SmartAccount(newAccount).initialize(payable(msg.sender), savingPercent, sponsor, charity);
+        SmartAccount(payable(newAccount)).initialize(payable(msg.sender), savingPercent, sponsor, charity);
     }
 }

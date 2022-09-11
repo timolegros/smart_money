@@ -24,7 +24,7 @@ const CreateAccount = ({setNewAccountAddress, factoryInstance, signer}) => {
         try {
             const result = await factoryInstance.connect(signer).createAccount(savingPercentValue, sponsorAddress);
             const receipt = await result.wait();
-
+            console.log(receipt);
             const accountAddress = receipt.events[0].args[1];
             console.log("New account created:", accountAddress);
 
