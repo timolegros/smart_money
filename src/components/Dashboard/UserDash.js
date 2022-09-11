@@ -4,11 +4,17 @@ import {getBankAccount} from "../../util";
 import {ethers} from "ethers";
 import CreateBet from "./CreateBet";
 
-const UserDash = ({web3Provider, accountAddress}) => {
+const UserDash = ({web3Provider, accountAddress, signer}) => {
     const [checkingBal, setCheckingBal] = useState("0");
     const [savingsBal, setSavingsBal] = useState("0");
     const [betCounter, setBetCounter] = useState(0);
     const [bets, setBets] = useState([]);
+
+    const getState = (val) => {
+        if (val === 0) return "In-progress"
+        else if (val === 1) return "Won"
+        else return "Lost"
+    }
 
 
     useEffect(() => {
@@ -56,7 +62,7 @@ const UserDash = ({web3Provider, accountAddress}) => {
                         <Card.Text style={{color: 'black', 'font-size': '3rem'}}>ETH {savingsBal}</Card.Text>
                     </Card.Body>
                 </Card>
-                <CreateBet/>
+                <CreateBet web3Provider={web3Provider} accountAddress={accountAddress} signer={signer}/>
             </div>
 
             <div>
@@ -75,31 +81,13 @@ const UserDash = ({web3Provider, accountAddress}) => {
                             return (
                                 <tr>
                                     <td>{index + 1}</td>
-                                    <td>bet.amount</td>
-                                    <td>bet.state</td>
+                                    <td>{bet.amount.toNumber()}</td>
+                                    <td>{getState(bet.state)}</td>
                                     <td>UNICEF</td>
                                 </tr>
                             )
                         })
                     }
-                    <tr>
-                        <td>1</td>
-                        <td>100</td>
-                        <td>In progress</td>
-                        <td>UNICEF</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>200</td>
-                        <td>Lost: donated</td>
-                        <td>UNICEF</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>500</td>
-                        <td>Won</td>
-                        <td>UNICEF</td>
-                    </tr>
                     </tbody>
                 </Table>
             </div>

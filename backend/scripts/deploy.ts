@@ -2,7 +2,7 @@ import { ethers } from "hardhat";
 
 async function main() {
   // CoinCenterOrg
-  const charity_address = "0x15322B546e31F5Bfe144C4ae133A9Db6F0059fe3";
+  const charity_address = "0x817838ab98f50f87917359a918cb7e57c07f9fa4";
   const [deployer] = await ethers.getSigners();
 
   const saEthersFactory = await ethers.getContractFactory("SmartAccount");

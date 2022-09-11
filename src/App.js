@@ -193,7 +193,7 @@ function App() {
             return (
                 <div className="App">
                     <header className="App-header">
-                        <Dashboard web3Provider={library} accountAddress={accountAddress}/>
+                        <Dashboard web3Provider={library} accountAddress={accountAddress} signer={signer}/>
                         <Button onClick={disconnect}>Disconnect Wallet</Button>
                     </header>
                 </div>

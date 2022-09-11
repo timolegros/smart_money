@@ -3,12 +3,36 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import {getBankAccount} from "../../util";
 
-function CreateBet() {
+function CreateBet({web3Provider, accountAddress, signer}) {
     const [show, setShow] = useState(false);
+    const [amount, setAmount] = useState(0);
+    const [description, setDescription] = useState("");
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const handleCreateClose = async () => {
+        try {
+            const smartAccount = getBankAccount(accountAddress, web3Provider);
+            await smartAccount.connect(signer).placeBet(amount, description);
+            setShow(false);
+            window.location.reload()
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    const handleAmountChange = (e) => {
+        console.log(e.target.value);
+        setAmount(e.target.value);
+    }
+
+    const handleDescriptionChange = (e) => {
+        console.log(e.target.value);
+        setDescription(e.target.value);
+    }
 
     return (
         <>
@@ -29,7 +53,7 @@ function CreateBet() {
                     <Form>
                         <Form.Group className="mb-3" controlId="formBetAmount">
                             <Form.Label>Amount (CA$)</Form.Label>
-                            <Form.Control type="number" placeholder="999999" />
+                            <Form.Control type="number" placeholder="999999" onChange={handleAmountChange} />
                             <Form.Text className="text-muted">
                                 We do NOT take any percentage if you lose. Charities receive 100% of this amount.
                             </Form.Text>
@@ -40,6 +64,7 @@ function CreateBet() {
                                 as="textarea"
                                 placeholder="Leave a comment here"
                                 style={{ height: '100px' }}
+                                onClick={handleDescriptionChange}
                             />
                         </FloatingLabel>
 
@@ -47,14 +72,13 @@ function CreateBet() {
                         <Form.Select style={{marginBottom: "1em"}}>
                             <option>UNICEF</option>
                         </Form.Select>
-
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Cancel
                     </Button>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button variant="primary" onClick={handleCreateClose}>
                         Create
                     </Button>
                 </Modal.Footer>
