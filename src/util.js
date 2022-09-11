@@ -1,5 +1,6 @@
 import { ethers } from "ethers";
 import SmartAccountFactoryContract from './contractAbis/SmartAccountFactory.json';
+import SmartAccountContract from './contractAbis/SmartAccount.json';
 
 const smartAccountFactoryAddress = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
 
@@ -19,6 +20,10 @@ export const toHex = (num) => {
 
 export function getAccountFactory(provider) {
     return new ethers.Contract(smartAccountFactoryAddress, SmartAccountFactoryContract.abi, provider);
+}
+
+export function getBankAccount(address, provider) {
+    return new ethers.Contract(address, SmartAccountContract.abi, provider);
 }
 
 export async function createAccount(signer, savingPercent, sponsorAddress, factoryContract) {
