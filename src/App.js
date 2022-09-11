@@ -152,19 +152,25 @@ function App() {
         }
     }, [provider]);
 
-    return (
-        <div className="App">
-            <header className="App-header">
-                {/*<img src={logo} style={{cursor: "pointer"}}/>*/}
-                {/*{!account ? (*/}
-                {/*    <Button onClick={connectWallet}>Connect Wallet</Button>*/}
-                {/*) : (*/}
-                {/*    <Button onClick={disconnect}>Disconnect</Button>*/}
-                {/*)}*/}
-                <Dashboard />
-            </header>
-        </div>
-    );
+    if (!account) {
+        return (
+            <div className="App">
+                <header className="App-header">
+                    <img src={logo} style={{cursor: "pointer", marginBottom: "1rem"}}/>
+                    <Button onClick={connectWallet}>Connect Wallet</Button>
+                </header>
+            </div>
+        );
+    } else {
+        return (
+            <div className="App">
+                <header className="App-header">
+                    <Dashboard />
+                    <Button onClick={disconnect}>Disconnect Wallet</Button>
+                </header>
+            </div>
+        );
+    }
 }
 
 export default App;
