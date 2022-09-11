@@ -174,6 +174,7 @@ function App() {
         return (
             <div className="App">
                 <header className="App-header">
+                    <h1 style={{color: '#f57056', fontSize: '3em'}}>SmartBet</h1>
                     <img src={logo} style={{cursor: "pointer", marginBottom: "1rem"}}/>
                     <Button onClick={connectWallet}>Connect Wallet</Button>
                 </header>
